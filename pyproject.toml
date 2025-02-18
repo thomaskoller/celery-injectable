@@ -1,0 +1,22 @@
+[project]
+name = "injectable"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "thomaskoller", email = "thomaskoller90@icloud.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.8",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.4",
+    "ruff>=0.9.6",
+]
