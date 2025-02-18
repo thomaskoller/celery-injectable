@@ -10,7 +10,7 @@ def test_can_call_function_without_dependencies():
     assert fn(1, 2) == 3
 
 
-def test_can_call_function_without_single_dependency():
+def test_can_call_function_with_single_dependency():
     def get_calculator():
         return lambda a, b: a + b
 
