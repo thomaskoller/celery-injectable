@@ -1,3 +1,4 @@
+import math
 from typing import Annotated, Callable
 from injectable import inject, Depends
 
@@ -23,3 +24,37 @@ def test_can_call_function_with_single_dependency():
         return calculator(a, b)
 
     assert fn(1, 2) == 3
+
+
+def test_can_call_function_with_single_generator_dependency():
+    def get_calculator():
+        yield lambda a, b: a + b
+
+    @inject
+    def fn(
+        a: int,
+        b: int,
+        calculator: Annotated[Callable[[int, int], int], Depends(get_calculator)],
+    ):
+        return calculator(a, b)
+
+    assert fn(1, 2) == 3
+
+
+def test_can_call_function_with_dependencies():
+    def get_pi():
+        yield math.pi
+
+    def get_rad_to_degree(
+        pi: Annotated[float, Depends(get_pi)],
+    ):
+        yield lambda rad: rad * (180 / pi)
+
+    @inject
+    def fn(
+        rad: float,
+        rad_to_degree: Annotated[Callable[[float], float], Depends(get_rad_to_degree)],
+    ):
+        return rad_to_degree(rad)
+
+    assert fn(rad=math.pi) == 180

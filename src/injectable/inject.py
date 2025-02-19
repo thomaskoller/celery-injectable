@@ -12,6 +12,7 @@ R = TypeVar("R")
 
 def inject(func: Callable[P, R]) -> Callable[P, R]:
     def wrapper(*args, **kwargs) -> R:
-        return func(*args, **kwargs, **get_dependencies(func=func))
+        with get_dependencies(func=func) as dependencies:
+            return func(*args, **kwargs, **dependencies)
 
     return wrapper

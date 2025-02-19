@@ -14,6 +14,6 @@ def test_can_extract_dependencies():
     ):
         return calculator(a, b)
 
-    dependencies = get_dependencies(func=fn)
-    assert "calculator" in dependencies
-    assert dependencies["calculator"](1, 2) == 3
+    with get_dependencies(func=fn) as dependencies:
+        assert "calculator" in dependencies
+        assert dependencies["calculator"](1, 2) == 3
