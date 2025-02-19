@@ -1,3 +1,4 @@
+from random import randint
 from typing import Annotated, Callable
 
 import pytest
@@ -30,7 +31,7 @@ def test_will_close_context():
             raise ValueError
 
     def fn(
-        number: Annotated[Callable[..., int], Depends(get_number)],
+        number: Annotated[int, Depends(get_number)],
     ):
         return number
 
@@ -39,3 +40,17 @@ def test_will_close_context():
     assert "number" in dependencies
     with pytest.raises(ValueError):
         context_manager.__exit__(None, None, None)
+
+
+def test_will_reuse_dependencies():
+    def get_number():
+        return randint(1, 100)
+
+    def fn(
+        first: Annotated[int, Depends(get_number)],
+        second: Annotated[int, Depends(get_number)],
+    ):
+        return first == second
+
+    with get_dependencies(func=fn) as dependencies:
+        assert dependencies["first"] == dependencies["second"]
