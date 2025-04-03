@@ -1,4 +1,4 @@
-# injectable
+# celery-injectable
 
 A lightweight package which allows you to reuse
 the [Depends](https://fastapi.tiangolo.com/features/#dependency-injection) mechanism
