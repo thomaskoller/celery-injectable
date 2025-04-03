@@ -3,8 +3,8 @@ from typing import Annotated, Callable
 
 import pytest
 
-from injectable import Depends
-from injectable.dependencies import get_dependencies
+from celery_injectable import Depends
+from celery_injectable.dependencies import get_dependencies
 
 
 def test_can_extract_dependencies():

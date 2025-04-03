@@ -1,7 +1,7 @@
 from fastapi import Depends
-from .inject import inject
+from .inject import injectable
 
 __all__ = [
     "Depends",
-    "inject",
+    "injectable",
 ]

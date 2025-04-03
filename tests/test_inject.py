@@ -1,10 +1,10 @@
 import math
 from typing import Annotated, Callable
-from injectable import inject, Depends
+from celery_injectable import injectable, Depends
 
 
 def test_can_call_function_without_dependencies():
-    @inject
+    @injectable
     def fn(a: int, b: int):
         return a + b
 
@@ -15,7 +15,7 @@ def test_can_call_function_with_single_dependency():
     def get_calculator():
         return lambda a, b: a + b
 
-    @inject
+    @injectable
     def fn(
         a: int,
         b: int,
@@ -30,7 +30,7 @@ def test_can_call_function_with_single_generator_dependency():
     def get_calculator():
         yield lambda a, b: a + b
 
-    @inject
+    @injectable
     def fn(
         a: int,
         b: int,
@@ -50,7 +50,7 @@ def test_can_call_function_with_dependencies():
     ):
         yield lambda rad: rad * (180 / pi)
 
-    @inject
+    @injectable
     def fn(
         rad: float,
         rad_to_degree: Annotated[Callable[[float], float], Depends(get_rad_to_degree)],

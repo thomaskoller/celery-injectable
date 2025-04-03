@@ -10,7 +10,7 @@ P = ParamSpec("P")
 R = TypeVar("R")
 
 
-def inject(func: Callable[P, R]) -> Callable[P, R]:
+def injectable(func: Callable[P, R]) -> Callable[P, R]:
     def wrapper(*args, **kwargs) -> R:
         with get_dependencies(func=func) as dependencies:
             return func(*args, **kwargs, **dependencies)
