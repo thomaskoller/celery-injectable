@@ -1,5 +1,5 @@
 [project]
-name = "celery-depends"
+name = "celery-injectable"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
